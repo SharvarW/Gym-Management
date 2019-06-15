@@ -1,0 +1,47 @@
+<?php
+$servername="localhost";
+$username="root";
+$password="";
+$dbname = "test";
+
+$conn = new mysqli($servername, $username, $password,$dbname);
+if ($conn->connect_error) 
+{
+    die("Connection failed: " . $conn->connect_error);
+} 
+echo "Connected successfully <br>" ;
+if(isset($_POST['submit']))
+{
+	$user_name=$_POST['username'];
+	$dob=$_POST['dob'];
+	$sql="select * from login where Uname='".$user_name."' AND DOB='".$dob."'";
+	$result =$conn->query($sql);
+	if($result->num_rows==1)
+	{
+		echo "  You can changed password! ";
+		$newLocation = "forgotPW2.php?user_name=$user_name";
+		header ("Location: $newLocation");
+	}
+}
+			mysqli_close($conn);
+?>
+<!doctype html>
+<html>
+	<head>
+	<title>LOGIN WINDOW</title>
+	</head>
+	<body background="Images/newlogin.png">
+	<form action="#" method="POST">
+	<div class="LOGIN BOX">
+	<p align="center" style="color:red"><center>Note* Only admin can add New User</center></p>
+	<div style = "position:relative; left:500px; top:50px";class="user">
+	<input type="text" id="$username" style="height:30px;width:110px;border-color:pink;border-width:4" name="username" size="35" placeholder="Enter Username"required/></td>
+	<br><br>
+	<input type="date" id="$dob" style="height:30px;width:110px;border-color:pink;border-width:4" name="dob" size="35"  placeholder="Enter dob"></td>
+	</br><br>
+	<input type="submit" id="$sumbit"  name="submit" value="S U B M I T"style="background-color:pink;height:55px; width: 220px"></button>
+	</div>
+	</div>
+	</form>
+	</body>
+</html>
